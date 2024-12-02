@@ -1,13 +1,9 @@
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+
 import Navigation from './src/router/Navigation';
 const App = () => {
-  return (
-    <NavigationContainer>
-      <Navigation />
-    </NavigationContainer>
-  );
+  return <Navigation />;
 };
 
 export default App;
