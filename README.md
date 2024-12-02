@@ -1,1 +1,3 @@
 ## SpotifyClone -- SpottyFail
+
+![](Screen.png)
