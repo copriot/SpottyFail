@@ -3,4 +3,7 @@ const themeColors = {
   LIGHTGREEN: '#B5CB99',
   YELLOW: '#FCE09B',
   BROWN: '#B2533E',
+  WHITE: '#fff',
 };
+
+export default themeColors;
