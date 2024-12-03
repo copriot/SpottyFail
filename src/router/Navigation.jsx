@@ -9,16 +9,77 @@ import LoginScreen from '../screens/LoginScreen';
 import LikedSongScreen from '../screens/LikedSongScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SongInfoScreen from '../screens/SongInfoScreen';
+import themeColors from '../theme/themeColors';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 const Navigation = () => {
   const Tab = createBottomTabNavigator();
 
   const BottomTabs = () => {
     return (
-      <Tab.Navigator>
-        <Tab.Screen name={screenNames.HOMESCREEN} component={HomeScreen} />
+      <Tab.Navigator
+        screenOptions={{
+          tabBarStyle: {
+            backgroundColor: themeColors.LIGHTGREEN,
+            shadowOpacity: 0.3,
+            shadowRadius: 4,
+            shadowOffset: {width: 0, height: -10},
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 85,
+            borderWidth: 0,
+          },
+        }}>
+        <Tab.Screen
+          name={screenNames.HOMESCREEN}
+          component={HomeScreen}
+          options={{
+            headerShown: false,
+            tabBarLabel: 'main',
+            tabBarLabelStyle: {
+              color: themeColors.DARKGREEN,
+              fontSize: 14,
+              fontWeight: '600',
+            },
+            tabBarIcon: ({focused}) =>
+              focused ? (
+                <Ionicons name="home" size={24} color={themeColors.DARKGREEN} />
+              ) : (
+                <Ionicons
+                  name="home-outline"
+                  size={22}
+                  color={themeColors.DARKGREEN}
+                />
+              ),
+          }}
+        />
         <Tab.Screen
           name={screenNames.PROFILESCREEN}
           component={ProfileScreen}
+          options={{
+            headerShown: false,
+            tabBarLabel: 'profile',
+            tabBarLabelStyle: {
+              color: themeColors.DARKGREEN,
+              fontSize: 14,
+              fontWeight: '600',
+            },
+            tabBarIcon: ({focused}) =>
+              focused ? (
+                <Ionicons
+                  name="person"
+                  size={24}
+                  color={themeColors.DARKGREEN}
+                />
+              ) : (
+                <Ionicons
+                  name="person-outline"
+                  size={22}
+                  color={themeColors.DARKGREEN}
+                />
+              ),
+          }}
         />
       </Tab.Navigator>
     );
