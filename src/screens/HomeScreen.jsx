@@ -1,5 +1,6 @@
 import {
   Dimensions,
+  FlatList,
   Image,
   Pressable,
   ScrollView,
@@ -7,20 +8,24 @@ import {
   Text,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import Loader from '../components/Loader';
 import themeColors from '../theme/themeColors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import {ArtistContext} from '../context/ArtistContext';
+import ArtistCard from '../components/ArtistCard';
+
 const HomeScreen = () => {
+  const {artists, loading, error} = useContext(ArtistContext);
+
   const {width, height} = Dimensions.get('screen');
+
   return (
     <LinearGradient
       colors={[themeColors.DARKGREEN, themeColors.LIGHTGREEN]}
       style={{flex: 1}}>
-      {/* <Loader /> */}
       <ScrollView style={{marginTop: height * 0.1, paddingBottom: 100}}>
         <View style={styles.header}>
           <View style={styles.leftSide}>
@@ -34,99 +39,47 @@ const HomeScreen = () => {
           <FontAwesome5 name="bolt" color={themeColors.WHITE} size={24} />
         </View>
         <ScrollView
-          style={{flexDirection: 'row'}}
-          showsHorizontalScrollIndicator={false}>
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            flexDirection: 'row',
+            paddingHorizontal: 15,
+          }}>
           <View style={styles.headerButtons}>
-            <Pressable style={styles.headerButton}>
-              <Text style={styles.headerButtonText}>Music</Text>
-            </Pressable>
-            <Pressable style={styles.headerButton}>
-              <Text style={styles.headerButtonText}>Podcast & Shows</Text>
-            </Pressable>
-            <Pressable style={styles.headerButton}>
-              <Text style={styles.headerButtonText}>Music</Text>
-            </Pressable>
-            <Pressable style={styles.headerButton}>
-              <Text style={styles.headerButtonText}>Podcast & Shows</Text>
-            </Pressable>{' '}
-            <Pressable style={styles.headerButton}>
-              <Text style={styles.headerButtonText}>Music</Text>
-            </Pressable>
-            <Pressable style={styles.headerButton}>
-              <Text style={styles.headerButtonText}>Podcast & Shows</Text>
-            </Pressable>
+            {['Music', 'Podcast & Shows'].map((item, index) => (
+              <Pressable style={styles.headerButton} key={index}>
+                <Text style={styles.headerButtonText}>{item}</Text>
+              </Pressable>
+            ))}
           </View>
         </ScrollView>
 
         <View>
-          <Pressable
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 10,
-              marginHorizontal: 10,
-              marginVertical: 8,
-              backgroundColor: '#202020',
-            }}>
+          <Pressable style={styles.listItem}>
             <LinearGradient
-              colors={[themeColors.LIGHTGREEN, themeColors.YELLOW]}>
-              <Pressable
-                style={{
-                  width: 55,
-                  height: 55,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <AntDesign name="heart" color="white" size={24} />
-              </Pressable>
+              colors={[themeColors.LIGHTGREEN, themeColors.YELLOW]}
+              style={styles.gradientButton}>
+              <AntDesign name="heart" color="white" size={24} />
             </LinearGradient>
           </Pressable>
-          <Pressable
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 10,
-              marginHorizontal: 10,
-              marginVertical: 8,
-              backgroundColor: '#202020',
-            }}>
-            <Pressable
-              style={{
-                width: 55,
-                height: 55,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Image
-                source={{uri: 'https://picsum.photos/201'}}
-                width={55}
-                height={55}
-              />
-            </Pressable>
+          <Pressable style={styles.listItem}>
+            <Image
+              source={{uri: 'https://picsum.photos/201'}}
+              style={styles.image}
+            />
           </Pressable>
-          <Pressable
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              gap: 10,
-              marginHorizontal: 10,
-              marginVertical: 8,
-              backgroundColor: '#202020',
-            }}>
-            <Pressable
-              style={{
-                width: 55,
-                height: 55,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Image
-                source={{uri: 'https://picsum.photos/200'}}
-                width={55}
-                height={55}
-              />
-            </Pressable>
+          <Pressable style={styles.listItem}>
+            <Image
+              source={{uri: 'https://picsum.photos/200'}}
+              style={styles.image}
+            />
           </Pressable>
+          <Text style={styles.sectionTitle}>Your Top Artist</Text>
+          <ScrollView horizontal>
+            {artists?.map((artist, index) => (
+              <ArtistCard key={index} artist={artist} />
+            ))}
+          </ScrollView>
         </View>
       </ScrollView>
     </LinearGradient>
@@ -147,14 +100,15 @@ const styles = StyleSheet.create({
     color: themeColors.WHITE,
     fontSize: 24,
   },
-  leftSide: {flexDirection: 'row', alignItems: 'center', gap: 5},
+  leftSide: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
   headerButtons: {
     flexDirection: 'row',
-    gap: 10,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    marginVertical: 5,
-    marginHorizontal: 15,
   },
   headerButton: {
     borderWidth: 1,
@@ -163,10 +117,40 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 15,
     borderColor: themeColors.WHITE,
+    marginHorizontal: 5,
   },
   headerButtonText: {
     color: themeColors.WHITE,
     fontSize: 15,
     fontWeight: 'bold',
+  },
+  listItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginHorizontal: 10,
+    marginVertical: 8,
+    backgroundColor: '#202020',
+    padding: 10,
+    borderRadius: 10,
+  },
+  gradientButton: {
+    width: 55,
+    height: 55,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 27.5,
+  },
+  image: {
+    width: 55,
+    height: 55,
+    borderRadius: 27.5,
+  },
+  sectionTitle: {
+    color: themeColors.WHITE,
+    marginHorizontal: 10,
+    fontSize: 19,
+    fontWeight: 'bold',
+    marginTop: 10,
   },
 });
