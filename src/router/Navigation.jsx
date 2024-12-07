@@ -20,6 +20,7 @@ const Navigation = () => {
         screenOptions={{
           tabBarStyle: {
             backgroundColor: themeColors.LIGHTGREEN,
+            shadowColor: themeColors.YELLOW,
             shadowOpacity: 0.3,
             shadowRadius: 4,
             shadowOffset: {width: 0, height: -10},
