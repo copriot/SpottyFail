@@ -100,7 +100,7 @@ const HomeScreen = () => {
             {albumsLoading ? (
               <Loader />
             ) : albumsError ? (
-              <Error />
+              <Error error={albumsError} />
             ) : (
               albums?.map((album, index) => (
                 <AlbumCard key={index} album={album} />

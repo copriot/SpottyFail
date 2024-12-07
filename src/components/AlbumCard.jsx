@@ -1,12 +1,13 @@
 import {useNavigation} from '@react-navigation/native';
 import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
+import screenNames from '../utils/screenNames';
 
 const AlbumCard = ({album}) => {
   const navigation = useNavigation();
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('Info', {album})}
+      onPress={() => navigation.navigate(screenNames.SONGINFOSCREEN, {album})}
       style={styles.albumContainer}>
       <Image source={{uri: album.coverArt}} style={styles.albumImage} />
       <Text style={styles.albumName}>{album.name}</Text>
