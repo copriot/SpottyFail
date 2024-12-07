@@ -3,10 +3,13 @@ import React from 'react';
 
 import Navigation from './src/router/Navigation';
 import {ArtistProvider} from './src/context/ArtistContext';
+import {AlbumsProvider} from './src/context/AlbumContext';
 const App = () => {
   return (
     <ArtistProvider>
-      <Navigation />;
+      <AlbumsProvider>
+        <Navigation />
+      </AlbumsProvider>
     </ArtistProvider>
   );
 };

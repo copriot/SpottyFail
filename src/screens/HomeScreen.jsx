@@ -16,12 +16,20 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {ArtistContext} from '../context/ArtistContext';
 import ArtistCard from '../components/ArtistCard';
+import {AlbumContext} from '../context/AlbumContext';
+import AlbumCard from '../components/AlbumCard';
+import Loader from '../components/Loader';
+import Error from '../components/Error';
 
 const HomeScreen = () => {
   const {artists, loading, error} = useContext(ArtistContext);
-
+  const {
+    albums,
+    loading: albumsLoading,
+    error: albumsError,
+  } = useContext(AlbumContext);
   const {width, height} = Dimensions.get('screen');
-
+  console.log(albums);
   return (
     <LinearGradient
       colors={[themeColors.DARKGREEN, themeColors.LIGHTGREEN]}
@@ -61,24 +69,43 @@ const HomeScreen = () => {
               style={styles.gradientButton}>
               <AntDesign name="heart" color="white" size={24} />
             </LinearGradient>
+            <Text style={{fontSize: 16, color: themeColors.WHITE}}>
+              Liked Song
+            </Text>
           </Pressable>
           <Pressable style={styles.listItem}>
             <Image
               source={{uri: 'https://picsum.photos/201'}}
               style={styles.image}
             />
+            <Text style={{fontSize: 16, color: themeColors.WHITE}}>
+              Rock&Roll
+            </Text>
           </Pressable>
           <Pressable style={styles.listItem}>
             <Image
               source={{uri: 'https://picsum.photos/200'}}
               style={styles.image}
             />
+            <Text style={{fontSize: 16, color: themeColors.WHITE}}>Jazz</Text>
           </Pressable>
           <Text style={styles.sectionTitle}>Your Top Artist</Text>
-          <ScrollView horizontal>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {artists?.map((artist, index) => (
               <ArtistCard key={index} artist={artist} />
             ))}
+          </ScrollView>
+          <Text style={styles.sectionTitle}>Your Top Artist</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {albumsLoading ? (
+              <Loader />
+            ) : albumsError ? (
+              <Error />
+            ) : (
+              albums?.map((album, index) => (
+                <AlbumCard key={index} album={album} />
+              ))
+            )}
           </ScrollView>
         </View>
       </ScrollView>
@@ -121,7 +148,7 @@ const styles = StyleSheet.create({
   },
   headerButtonText: {
     color: themeColors.WHITE,
-    fontSize: 15,
+    fontSize: 12,
     fontWeight: 'bold',
   },
   listItem: {
@@ -131,7 +158,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 8,
     backgroundColor: '#202020',
-    padding: 10,
+    padding: 7,
     borderRadius: 10,
   },
   gradientButton: {
