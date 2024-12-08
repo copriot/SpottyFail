@@ -1,6 +1,5 @@
 import {
   Dimensions,
-  FlatList,
   Image,
   Pressable,
   ScrollView,
@@ -20,8 +19,12 @@ import {AlbumContext} from '../context/AlbumContext';
 import AlbumCard from '../components/AlbumCard';
 import Loader from '../components/Loader';
 import Error from '../components/Error';
+import {useNavigation} from '@react-navigation/native';
+import screenNames from '../utils/screenNames';
 
 const HomeScreen = () => {
+  const navigation = useNavigation();
+
   const {artists, loading, error} = useContext(ArtistContext);
   const {
     albums,
@@ -29,12 +32,12 @@ const HomeScreen = () => {
     error: albumsError,
   } = useContext(AlbumContext);
   const {width, height} = Dimensions.get('screen');
-  console.log(albums);
+  // console.log(albums);
   return (
     <LinearGradient
       colors={[themeColors.DARKGREEN, themeColors.LIGHTGREEN]}
       style={{flex: 1}}>
-      <ScrollView style={{marginTop: height * 0.1, paddingBottom: 100}}>
+      <ScrollView style={{marginTop: height * 0.05, paddingBottom: 100}}>
         <View style={styles.header}>
           <View style={styles.leftSide}>
             <Ionicons
@@ -63,15 +66,15 @@ const HomeScreen = () => {
         </ScrollView>
 
         <View>
-          <Pressable style={styles.listItem}>
+          <Pressable
+            onPress={() => navigation.navigate(screenNames.SONGSSCREEN)}
+            style={styles.listItem}>
             <LinearGradient
               colors={[themeColors.LIGHTGREEN, themeColors.YELLOW]}
               style={styles.gradientButton}>
               <AntDesign name="heart" color="white" size={24} />
             </LinearGradient>
-            <Text style={{fontSize: 16, color: themeColors.WHITE}}>
-              Liked Song
-            </Text>
+            <Text style={{fontSize: 16, color: themeColors.WHITE}}>Songs</Text>
           </Pressable>
           <Pressable style={styles.listItem}>
             <Image
@@ -95,7 +98,7 @@ const HomeScreen = () => {
               <ArtistCard key={index} artist={artist} />
             ))}
           </ScrollView>
-          <Text style={styles.sectionTitle}>Your Top Artist</Text>
+          <Text style={styles.sectionTitle}>Popular Albums</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {albumsLoading ? (
               <Loader />
@@ -136,6 +139,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    marginVertical: 4,
   },
   headerButton: {
     borderWidth: 1,

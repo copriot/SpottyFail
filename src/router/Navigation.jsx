@@ -11,6 +11,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import SongInfoScreen from '../screens/SongInfoScreen';
 import themeColors from '../theme/themeColors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import SongsScreen from '../screens/LikedSongScreen';
 const Navigation = () => {
   const Tab = createBottomTabNavigator();
 
@@ -96,10 +97,7 @@ const Navigation = () => {
         }}>
         <Stack.Screen name="Main" component={BottomTabs} />
         <Stack.Screen name={screenNames.LOGINSCREEN} component={LoginScreen} />
-        <Stack.Screen
-          name={screenNames.LIKEDSONGSCREEN}
-          component={LikedSongScreen}
-        />
+        <Stack.Screen name={screenNames.SONGSSCREEN} component={SongsScreen} />
 
         <Stack.Screen
           name={screenNames.SONGINFOSCREEN}

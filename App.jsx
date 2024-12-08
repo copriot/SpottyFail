@@ -4,13 +4,16 @@ import React from 'react';
 import Navigation from './src/router/Navigation';
 import {ArtistProvider} from './src/context/ArtistContext';
 import {AlbumsProvider} from './src/context/AlbumContext';
+import {ProfileProvider} from './src/context/ProfileContext';
 const App = () => {
   return (
-    <ArtistProvider>
-      <AlbumsProvider>
-        <Navigation />
-      </AlbumsProvider>
-    </ArtistProvider>
+    <ProfileProvider>
+      <ArtistProvider>
+        <AlbumsProvider>
+          <Navigation />
+        </AlbumsProvider>
+      </ArtistProvider>
+    </ProfileProvider>
   );
 };
 

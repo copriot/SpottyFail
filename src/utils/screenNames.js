@@ -1,7 +1,7 @@
 const screenNames = {
   HOMESCREEN: 'Home',
   LOGINSCREEN: 'Login',
-  LIKEDSONGSCREEN: 'Liked Songs',
+  SONGSSCREEN: 'Songs',
   PROFILESCREEN: 'Profile',
   SONGINFOSCREEN: 'Song Info',
 };

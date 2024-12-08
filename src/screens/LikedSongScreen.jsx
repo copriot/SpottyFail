@@ -1,14 +1,14 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
-const LikedSongScreen = () => {
+const SongsScreen = () => {
   return (
     <View>
-      <Text>LikedSongScreen</Text>
+      <Text>SongsScreen</Text>
     </View>
   );
 };
 
-export default LikedSongScreen;
+export default SongsScreen;
 
 const styles = StyleSheet.create({});
