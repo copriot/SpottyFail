@@ -39,7 +39,7 @@ export const ProfileProvider = ({children}) => {
   }, []);
 
   return (
-    <ProfileContext.Provider value={(profile, profileLoading, profileError)}>
+    <ProfileContext.Provider value={{profile, profileLoading, profileError}}>
       {children}
     </ProfileContext.Provider>
   );

@@ -99,6 +99,10 @@ const styles = StyleSheet.create({
   coverImage: {
     width: width * 0.5,
     height: width * 0.5,
+    borderTopRightRadius: 50,
+    borderBottomLeftRadius: 50,
+    borderWidth: 5,
+    borderColor: themeColors.WHITE,
   },
   imageView: {flex: 1, alignItems: 'center'},
   albumNameText: {
