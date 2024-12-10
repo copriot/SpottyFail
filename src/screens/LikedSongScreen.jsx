@@ -14,11 +14,17 @@ import themeColors from '../theme/themeColors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import Loader from '../components/Loader';
+
+import Modal from 'react-native-modal';
+import TrackPlayer, {useProgress} from 'react-native-track-player';
 const SongsScreen = () => {
   const [searchText, setSearchText] = useState('Türkiyede Popüler');
   const [seachedTracks, setSearchTracks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+
   const handleSearch = async () => {
     const options = {
       method: 'GET',
@@ -57,7 +63,7 @@ const SongsScreen = () => {
         themeColors.BROWN,
         themeColors.LIGHTGREEN,
       ]}>
-      <ScrollView style={{flex: 1, marginTop: 50}}>
+      <View style={{flex: 1, marginTop: 50}}>
         <View
           style={{
             flexDirection: 'row',
@@ -117,12 +123,12 @@ const SongsScreen = () => {
           ) : (
             <FlatList
               data={seachedTracks}
-              keyExtractor={item => item.track.key}
+              keyExtractor={item => item?.track?.key}
               renderItem={({item}) => (
                 <Pressable>
                   <View style={styles.trackContainer}>
                     <Image
-                      source={{uri: item.track.images.coverart}}
+                      source={{uri: item?.track?.images?.coverart}}
                       style={{width: 65, height: 65, borderRadius: 50}}
                     />
                     <View style={styles.songInfo}>
@@ -150,7 +156,7 @@ const SongsScreen = () => {
             />
           )}
         </View>
-      </ScrollView>
+      </View>
     </LinearGradient>
   );
 };

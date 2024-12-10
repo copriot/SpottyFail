@@ -3,7 +3,7 @@ import themeColors from '../theme/themeColors';
 import {BarIndicator} from 'react-native-indicators';
 const Loader = () => {
   return (
-    <View style={styles.container}>
+    <View key={'loader'} style={styles.container}>
       <BarIndicator color={themeColors.WHITE} />
     </View>
   );
