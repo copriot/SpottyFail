@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 'auto',
   },
   Buttonx: {
-    borderBottomWidth: 4,
+    borderBottomWidth: 3,
     borderColor: themeColors.YELLOW,
     width: '45%',
     flexDirection: 'row',
