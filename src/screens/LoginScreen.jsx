@@ -13,6 +13,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
 const {width, height} = Dimensions.get('screen');
+
 const LoginScreen = () => {
   const navigation = useNavigation();
   return (
@@ -44,14 +45,33 @@ const LoginScreen = () => {
           />
           <Text style={styles.buttonText}>Continue with phone number</Text>
         </Pressable>
-        <Pressable style={styles.Button}>
-          <Entypo name="facebook" color="white" size={24} />
-          <Text style={styles.buttonText}>Continue with Facebook</Text>
-        </Pressable>
-        <Pressable style={styles.Button}>
-          <AntDesign name="google" color={themeColors.WHITE} size={24} />
-          <Text style={styles.buttonText}>Continue with Google</Text>
-        </Pressable>
+        <View style={{alignItems: 'center', marginTop: 20}}>
+          <Text
+            style={{
+              color: themeColors.WHITE,
+              fontSize: 20,
+              fontWeight: '900',
+              borderBottomWidth: 1,
+              borderBottomColor: themeColors.YELLOW,
+            }}>
+            &
+          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              width: '80%',
+            }}>
+            <Pressable style={styles.Buttonx}>
+              <Entypo name="facebook" color="white" size={24} />
+              <Text style={styles.buttonText}>Facebook</Text>
+            </Pressable>
+            <Pressable style={styles.Buttonx}>
+              <AntDesign name="google" color={themeColors.WHITE} size={24} />
+              <Text style={styles.buttonText}>Google</Text>
+            </Pressable>
+          </View>
+        </View>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -102,5 +122,16 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     padding: 10,
     marginHorizontal: 'auto',
+  },
+  Buttonx: {
+    borderBottomWidth: 4,
+    borderColor: themeColors.YELLOW,
+    width: '45%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 10,
+    borderRadius: 25,
+    padding: 10,
   },
 });
